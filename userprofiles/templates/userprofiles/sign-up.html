@@ -1,0 +1,35 @@
+{% extends 'userprofiles/base.html' %} {% block content %}
+
+<form method="POST" action="">
+  {% csrf_token %} 
+
+  {{form.as_p}}
+<input type="submit" value="Submit" class="btn btn-primary">
+
+
+
+</form>
+
+{% endblock content %} {% comment %}
+<div class="container mt-5">
+  <article class="row justify-content-center">
+    <div class="col-5 bg-light mt-5 py-3 px-3 rounded-3">
+      <div class="text-center py-3">
+        <h2 class="mb-1">NSIB E-portal</h2>
+        <p class="mb-3">Create Staff Account</p>
+      </div>
+
+      <form method="POST" action="">
+        {% csrf_token %} {{form.as_p}}
+
+        <button type="button" class="btn btn-primary mb-4">Submit</button>
+
+        <div class="my-3 d-flex justify-content-between">
+          <a href="" class="color-sucess">Already have and account? Login</a>
+          <a href="" class="color-danger">Forgot Password ?</a>
+        </div>
+      </form>
+    </div>
+  </article>
+</div>
+{% endcomment %}

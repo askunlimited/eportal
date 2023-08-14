@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <title>{% block title %}{% endblock title %} | NSIB E-portal</title>
+  </head>
+  <body>
+    <main class="flex justify-between">
+      <aside class="w-1/6 bg-blue-900 h-screen py-6 px-6">
+        <div class="mb-9">
+          <p class="text-white font-normal text-xlg">NSIB</p>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Dashboard</a>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Users</a>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Departments</a>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Folders</a>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Files</a>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Profile</a>
+        </div>
+        <div class="py-2 px-3 hover:bg-blue-500 my-2 rounded-md">
+          <a href="" class="text-white font-normal text-lg">Logout</a>
+        </div>
+      </aside>
+      <div class="w-5/6 py-6 px-6 h-screen overflow-auto">
+        {% block content %} {% endblock content %}
+      </div>
+    </main>
+  </body>
+</html>

@@ -1,0 +1,26 @@
+{% extends 'accounts/base.html' %} {% block content %}
+
+<main class="flex items-center justify-center h-screen">
+  <article class="my-auto py-6 px-8 bg-gray-100 rounded-md">
+    <h1 class="text-xl text-blue-800 text-center">Portal Login</h1>
+
+    <form method="POST">
+      {% csrf_token %}
+
+      <div class="columns-1 my-4 mx-4">
+        <label for="username" class="form-label">Username: </label>
+        {{form.username}}
+      </div>
+      <div class="columns-1 my-4 mx-4">
+        <label for="username" class="form-label">Password: </label>
+        {{form.password}}
+      </div>
+
+      <button class="py-3 px-8 bg-blue-800 text-white rounded-md mt-2">
+        Log in
+      </button>
+    </form>
+  </article>
+</main>
+
+{% endblock content %}

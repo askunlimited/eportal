@@ -1,0 +1,54 @@
+{% extends 'accounts/dashboard_temp.html' %} {% block content %}
+<article class="mb-8 flex justify-end">
+  <a href="" class="py-3 px-5 bg-blue-800 text-white rounded-md">New Staff</a>
+</article>
+
+<article class="">
+  <h1 class="text-2xl font-medium my-4 mx-4">Add Staff</h1>
+  <form method="post">
+    {% csrf_token %}
+
+    <div class="row">
+      <div class="columns-2 my-4 mx-4">
+        <label for="email" class="form-label">E-mail</label>
+        {{form.email}}
+      </div>
+      <div class="columns-2 my-4 mx-4">
+        <label for="first_name" class="form-label">Name</label>
+        {{form.first_name}}
+      </div>
+      {% comment %}
+      <div class="columns-2 my-4 mx-4">
+        <label for="last_name" class="form-label">Last Name</label>
+        {{form.last_name}}
+      </div>
+      <div class="columns-2 my-4 mx-4">
+        <label for="telephone" class="form-label">Telephone</label>
+        {{form.telephone}}
+      </div>
+      <div class="columns-2 my-4 mx-4">
+        <label for="telephone" class="form-label">Department</label>
+        {{form.department}}
+      </div>
+      {% endcomment %}
+
+      <div class="columns-2 my-4 mx-4">
+        <label for="password1" class="form-label">Password</label>
+        {{form.password1}}
+      </div>
+      <div class="columns-2 my-4 mx-4">
+        <label for="password2" class="form-label">Confirm password</label>
+        {{form.password2}}
+      </div>
+    </div>
+
+    {% comment %} {{form.as_p}} {% endcomment %}
+
+    <button
+      class="py-3 px-6 bg-blue-800 text-white text-md my-4 mx-4 rounded-md"
+    >
+      Submit
+    </button>
+  </form>
+</article>
+{% endblock content %}
