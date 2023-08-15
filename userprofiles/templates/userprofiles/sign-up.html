@@ -1,14 +1,27 @@
-{% extends 'userprofiles/base.html' %} {% block content %}
+{% extends 'userprofiles/base.html' %}
 
-<form method="POST" action="">
-  {% csrf_token %} 
+{% load static %}
 
-  {{form.as_p}}
-<input type="submit" value="Submit" class="btn btn-primary">
-
-
-
-</form>
+{% block content %}
+<div class="container mt-5 mb-5">
+  <div class=""></div>
+  <div class="row justify-content-center mt-5">
+    <div class="col-5">
+      <div class="text-center">
+        <img src="{% static '/images/nsib-logo-150.jpg' %}" alt="NSIB Logo" class="">
+        <h3 class="text-center">NSIB Staff Portal</h3>
+        <p class="text-center">Sign up staff Account</p>
+        
+      </div>
+      <div class="py-4 px-3 rounded my-3 bg-light text-dark">
+        <form method="POST" action="">
+          {% csrf_token %} {{form.as_p}}
+          <input type="submit" value="Submit" class="btn btn-primary" />
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 
 {% endblock content %} {% comment %}
 <div class="container mt-5">

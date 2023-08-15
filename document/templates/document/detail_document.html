@@ -1,0 +1,20 @@
+{% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
+<style>
+  #myDoc {
+    width: 450px;
+    height: 700px;
+  }
+</style>
+<div class="container mt-5 mb-5">
+  <div class="row mt-5">
+    <div class="col-8">
+      {% if document %}
+      {{document.created_by}} 
+      <iframe src="{{document.upload.url}}" framerborder="0" height="500" width="800" ></iframe>
+      {{document.name}} 
+      
+      {% endif %}
+    </div>
+  </div>
+</div>
+{% endblock content %}

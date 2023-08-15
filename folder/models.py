@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 from userprofiles.models import Userprofile
 
@@ -8,7 +9,7 @@ class Folder(models.Model):
     description = models.CharField(max_length=255, blank=True)
     # department = models.ManyToManyField(Department, related_name="folders")
     created_by = models.ForeignKey(
-        Userprofile, related_name="folders", on_delete=models.CASCADE
+        User, related_name="folders", on_delete=models.CASCADE
     )
     created_at = models.DateTimeField(auto_now_add=True)
     modified_at = models.DateTimeField(auto_now=True)

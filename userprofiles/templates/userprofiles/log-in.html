@@ -1,27 +1,43 @@
-{% extends 'userprofiles/base.html' %} {% block content %}
-
+{% extends 'userprofiles/base.html' %} {% block content %} {% load static %}
 <div class="container mt-5 mb-5">
   <div class="row justify-content-center mt-5">
     <div class="col-5">
-      <form method="POST" action="">
-        {% csrf_token %}
+      <div class="text-center">
+        <img
+          src="{% static '/images/nsib-logo-150.jpg' %}"
+          alt="NSIB Logo"
+          class=""
+        />
+        <h3 class="text-center">NSIB Staff Portal</h3>
+        <p class="text-center">Log In</p>
+      </div>
+      <div class="py-4 px-3 rounded my-3 bg-light text-dark">
+        <form method="POST" action="">
+          {% csrf_token %}
 
-        <div class="mb-3">
-          <label for="exampleInputEmail1" class="form-label">Username</label>
-          <input
-            type="text"
-            class="form-control"
-            name="username"
-            aria-describedby="emailHelp"
-          />
-        </div>
-        <div class="mb-3">
-          <label for="exampleInputPassword1" class="form-label">Password</label>
-          <input type="password" class="form-control" name="password" />
-        </div>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Username</label>
+            <input
+              type="text"
+              class="form-control"
+              name="username"
+              aria-describedby="emailHelp"
+            />
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label"
+              >Password</label
+            >
+            <input type="password" class="form-control" name="password" />
+          </div>
 
-        <input type="submit" value="Submit" class="btn btn-primary" />
-      </form>
+          <input type="submit" value="Submit" class="btn btn-primary my-4" />
+        </form>
+      </div>
+      <div class="d-flex justify-content-between mt-5">
+        <a href="">Create Account</a>
+        <a href="">Reset password</a>
+      </div>
     </div>
   </div>
 </div>

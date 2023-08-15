@@ -23,18 +23,15 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "userprofiles",
     # "accounts",
-    "department",
+    # "department",
     "document",
     "folder",
 ]
 
 
-# AUTH_USER_MODEL = "accounts.User"
-
-
 LOGIN_REDIRECT_URL = "/dashboard/"
-LOGIN_URL = ""
-LOGOUT_REDIRECT = ""
+
+LOGOUT_REDIRECT = "login"
 
 
 MIDDLEWARE = [

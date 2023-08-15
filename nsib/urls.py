@@ -6,13 +6,12 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
+    # Folder Url Path
+    path("folder/", include("folder.urls")),
+    path("document/", include("document.urls")),
+    # Userprofiles, departments and account url path
     path("", include("userprofiles.urls")),
-    path("log-out/", views.LogoutView.as_view(), name="log-out"),
-    path(
-        "",
-        views.LoginView.as_view(template_name="userprofiles/log-in.html"),
-        name="log-in",
-    ),
+    # path("log-out/", views.LogoutView.as_view(), name="log-out"),
 ]
 
 if settings.DEBUG:
