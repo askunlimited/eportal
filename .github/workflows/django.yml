@@ -9,7 +9,7 @@ env:
   # Use docker.io for Docker Hub if empty
   REGISTRY: docker.io
   # github.repository as <account>/<repo>
-  IMAGE_NAME: o3cloudng/eportal
+  IMAGE_NAME: eportal
 
 jobs:
   Build:
@@ -35,7 +35,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: o3cloudng/eportal:latest
+        tags: eportal:latest
 
     # - name: Install pipenv
     #   run: pip install pipenv
