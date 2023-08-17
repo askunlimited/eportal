@@ -28,9 +28,7 @@ jobs:
       run: docker build -t askunlimited/eportal:latest .
 
     - name: Push Docker image
-      run: |
-        docker build -t askunlimited/eportal:latest
-        docker push askunlimited/eportal:latest
+      run: docker push askunlimited/eportal:latest
 
 
   # deploy:
