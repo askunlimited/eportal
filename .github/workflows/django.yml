@@ -25,8 +25,8 @@ jobs:
         username: ${{ env.DOCKER_USERNAME }}
         password: ${{ env.DOCKER_TOKEN }}
     - name: Build Docker image
-      run: |
-        docker build -t myapp:latest .
+      run: docker build -t askunlimited/eportal:latest .
+
     - name: Push Docker image
       run: |
         docker build -t askunlimited/eportal:latest
