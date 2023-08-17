@@ -79,7 +79,7 @@ WSGI_APPLICATION = "nsib.wsgi.application"
 # postgres://vppmewlq:QiB-q4_ILPMoqa_lwk-XYAeKZbv1AiaD@trumpet.db.elephantsql.com/vppmewlq
 DATABASES = {
     'default': dj_database_url.parse(
-        "postgres://vppmewlq:QiB-q4_ILPMoqa_lwk-XYAeKZbv1AiaD@trumpet.db.elephantsql.com/vppmewlq",
+        os.environ.get("DB"),
         conn_max_age=600)
     }
 
