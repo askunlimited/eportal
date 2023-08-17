@@ -1,6 +1,7 @@
 from pathlib import Path
 from dotenv import load_dotenv
 import os
+import dj_database_url
 
 load_dotenv()
 
@@ -69,13 +70,18 @@ WSGI_APPLICATION = "nsib.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "new_db.sqlite3",
+#     }
+# }
+# postgres://vppmewlq:QiB-q4_ILPMoqa_lwk-XYAeKZbv1AiaD@trumpet.db.elephantsql.com/vppmewlq
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "new_db.sqlite3",
+    'default': dj_database_url.parse(
+        "postgres://vppmewlq:QiB-q4_ILPMoqa_lwk-XYAeKZbv1AiaD@trumpet.db.elephantsql.com/vppmewlq",
+        conn_max_age=600)
     }
-}
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

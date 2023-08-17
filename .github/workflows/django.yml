@@ -35,7 +35,7 @@ jobs:
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: eportal:latest
+        tags: askunlimited/docker eportal:latest
 
     # - name: Install pipenv
     #   run: pip install pipenv
