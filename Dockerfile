@@ -24,7 +24,7 @@ COPY . .
 # RUN pipenv shell
 # RUN python manage.py makemigrations --no-input 
 
-RUN python manage.py migrate --no-input 
+# RUN python manage.py migrate --no-input 
 
 # RUN python manage.py collectstatic --no-input -v 2
 
