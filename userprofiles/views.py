@@ -5,6 +5,7 @@ from django.shortcuts import (
     get_object_or_404,
     get_list_or_404,
 )
+from django.contrib.auth.decorators import login_required
 
 # from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import authenticate, login, logout
@@ -17,6 +18,7 @@ from .models import Userprofile, Department
 # Create your views here.
 
 
+@login_required(login_url="/")
 def dashboard(request):
     return render(request, "userprofiles/dashboard.html")
 
@@ -69,6 +71,7 @@ def sign_out(request):
     return redirect("/")
 
 
+@login_required(login_url="/")
 def list_department(request):
     departments = get_list_or_404(Department)
 
@@ -77,6 +80,7 @@ def list_department(request):
     )
 
 
+@login_required(login_url="/")
 def add_department(request):
     if request.method == "POST":
         form = AddDepartmentForm(request.POST)
@@ -93,6 +97,7 @@ def add_department(request):
     return render(request, "userprofiles/add_department.html", {"form": form})
 
 
+@login_required(login_url="/")
 def edit_department(request, pk):
     department = get_object_or_404(Department, created_by=request.user, pk=pk)
     if request.method == "POST":
@@ -109,6 +114,7 @@ def edit_department(request, pk):
     return render(request, "userprofiles/add_department.html", {"form": form})
 
 
+@login_required(login_url="/")
 def delete_department(request, pk):
     department = get_object_or_404(Department, created_by=request.user, pk=pk)
     department.delete()
@@ -118,6 +124,7 @@ def delete_department(request, pk):
 # Userprofiles
 
 
+@login_required(login_url="/")
 def list_users(request):
     userprofiles = get_list_or_404(Userprofile)
 
@@ -126,6 +133,7 @@ def list_users(request):
     )
 
 
+@login_required(login_url="/")
 def edit_userprofile(request, pk):
     department = get_object_or_404(Userprofile, pk=pk)
     if request.method == "POST":

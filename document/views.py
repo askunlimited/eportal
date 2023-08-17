@@ -9,7 +9,7 @@ from .models import Document
 # Create your views here.
 
 
-@login_required
+@login_required(login_url="/")
 def list_document(request):
     documents = Document.objects.filter(created_by=request.user)
     return render(request, "document/list_document.html", {"documents": documents})
@@ -55,7 +55,7 @@ def detail_document(request, pk):
     return render(request, "document/detail_document.html", {"document": document})
 
 
-
+@login_required(login_url="/")
 def delete_document(request, pk):
     document = Document.objects.get(created_by=request.user, pk=pk)
     document.delete()
