@@ -25,10 +25,10 @@ jobs:
         username: ${{ env.DOCKER_USERNAME }}
         password: ${{ env.DOCKER_TOKEN }}
     - name: Build Docker image
-      run: docker build -t askunlimited/eportal:latest .
+      run: docker build -t ${{ env.IMAGE_NAME }} .
 
     - name: Push Docker image
-      run: docker push askunlimited/eportal:latest
+      run: docker push ${{ env.IMAGE_NAME }}
 
 
   # deploy:
