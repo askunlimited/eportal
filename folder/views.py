@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.contrib.auth.decorators import login_required
 
 from django.contrib import messages
 
@@ -7,7 +8,7 @@ from .models import Folder
 
 # Create your views here.
 
-
+@login_required(login_url="/")
 def list_folder(request):
     folders = Folder.objects.all()
     # folders = get_list_or_404(
@@ -15,7 +16,7 @@ def list_folder(request):
     # )
     return render(request, "folder/list_folder.html", {"folders": folders})
 
-
+@login_required(login_url="/")
 def add_folder(request):
     if request.method == "POST":
         form = AddFolderForm(request.POST)
@@ -31,7 +32,7 @@ def add_folder(request):
         form = AddFolderForm()
     return render(request, "folder/add_folder.html", {"form": form})
 
-
+@login_required(login_url="/")
 def edit_folder(request, pk):
     folder = Folder.objects.get(pk=pk)
     # folder = get_object_or_404(Folder, pk=pk)
@@ -48,7 +49,7 @@ def edit_folder(request, pk):
         form = AddFolderForm(instance=folder)
     return render(request, "folder/add_folder.html", {"form": form})
 
-
+@login_required(login_url="/")
 def delete_folder(request, pk):
     folder = Folder.objects.get(pk=pk)
     # folder = get_object_or_404(Folder, pk=pk)
