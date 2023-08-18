@@ -22,11 +22,11 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # RUN pipenv shell
-# RUN python manage.py makemigrations --no-input 
+RUN python manage.py makemigrations --no-input
 
-# RUN python manage.py migrate --no-input 
+RUN python manage.py migrate --no-input 
 
-# RUN python manage.py collectstatic --no-input -v 2
+RUN python manage.py collectstatic --no-input -v 2
 
 # expose the port 8000
 EXPOSE 8000
