@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/bash
 docker stop eportal
 docker rm eportal
 docker rmi askunlimited/eportal:latest
