@@ -42,5 +42,5 @@ jobs:
         username: ${{ secrets.HOST_USER }}
         password: ${{ secrets.HOST_PASS }}
         port: ${{ secrets.PORT }}
-        script: bash ./deploy.sh
+        script: bash sudo ./deploy.sh
 
