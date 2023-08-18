@@ -1,43 +1,42 @@
 {% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
 
-
-
-  <div>
-    <div class="mt-5 d-flex justify-content-end">
-      <div></div>
-      <div>
-        <a class="btn btn-primary" href="{% url 'add_dept' %}">Add Folder</a>
-      </div>
-    </div>
-      {% if folder %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Created By</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for folder in folders %}
-          <tr>
-            <td>{{folder.name}}</td>
-            <td>{{folder.description}}</td>
-            <td>{{folder.created_by}}</td>
-            <td>{{folder.created_at}}</td>
-            <td><a href="{% url 'edit_profile' userprofile.id %}">Edit</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %} 
-      <p class="my-5">You have not created any folder! </p>
-      
-      {% endif %}
+<div>
+  <div class="mt-5 d-flex justify-content-end">
+    <div></div>
+    <div>
+      <a class="btn btn-primary" href="{% url 'add_folder' %}">Add Folder</a>
     </div>
   </div>
+  {% if folder %}
+  <div class="my-2 mt-5">
+    <h4 class="text-md-start">Folders</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for folder in folders %}
+        <tr>
+          <td>{{folder.name}}</td>
+          <td>{{folder.description}}</td>
+          <td>{{folder.created_by}}</td>
+          <td>{{folder.created_at}}</td>
+          <td><a href="{% url 'edit_profile' userprofile.id %}">Edit</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="my-5">You have not created any folder!</p>
 
+    {% endif %}
+  </div>
+</div>
 
 {% endblock content %}

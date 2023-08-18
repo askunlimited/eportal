@@ -18,7 +18,7 @@ def list_document(request):
 @login_required(login_url="/")
 def add_document(request):
     if request.method == "POST":
-        form = AddDocumentForm(request.POST)
+        form = AddDocumentForm(request.POST, request.FILES)
         if form.is_valid():
             document = form.save(commit=False)
             document.created_by = request.user
@@ -36,7 +36,9 @@ def add_document(request):
 def edit_document(request, pk):
     document = Document.objects.get(created_by=request.user, pk=pk)
     if request.method == "POST":
-        form = AddDocumentForm(request.POST, instance=document)
+        form = AddDocumentForm(
+            request.POST or None, request.FILES or None, instance=document
+        )
         if form.is_valid():
             form.save()
 

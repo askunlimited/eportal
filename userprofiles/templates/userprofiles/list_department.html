@@ -8,8 +8,8 @@
     </div>
   </div>
   {% if departments %}
-  <div class="my-2">
-    <h3>Departments</h3>
+  <div class="my-2 mt-5">
+    <h4 class="text-md-start">Departments</h4>
     <table class="table">
       <thead>
         <tr>
@@ -22,9 +22,9 @@
       <tbody>
         {% for department in departments %}
         <tr>
-          <td>{{department.name}}</td>
-          <td>{{department.created_by}}</td>
-          <td>{{department.created_at}}</td>
+          <td class="fs-6">{{department.name}}</td>
+          <td class="fs-6">{{department.created_by}}</td>
+          <td class="fs-6">{{department.created_at}}</td>
         </tr>
         {% endfor %}
       </tbody>

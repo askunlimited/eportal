@@ -1,41 +1,44 @@
 {% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
 <div>
-    <div class="mt-5 d-flex justify-content-end">
-      <div></div>
-      <div>
-        <a class="btn btn-primary" href="{% url 'add_dept' %}">Add Document</a>
-      </div>
+  <div class="mt-5 d-flex justify-content-end">
+    <div></div>
+    <div>
+      <a class="btn btn-primary" href="{% url 'add_document' %}"
+        >Add Document</a
+      >
     </div>
-      {% if documents %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Created By</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for document in documents %}
-          <tr>
-            <td>{{document.name}}</td>
-            <td>{{document.description}}</td>
-            <td>{{document.created_by}}</td>
-            <td>{{document.created_at}}</td>
-            <td><a href="{{document.upload}}">View</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %} 
-      
-      <p class="my-5">You have not added any document! </p>
-      
-      {% endif %}
-    </div>
-  
+  </div>
+  {% if documents %}
+  <div class="my-2 mt-5">
+    <h4 class="text-md-start">Documents</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for document in documents %}
+        <tr>
+          <td>{{document.name}}</td>
+          <td>{{document.description}}</td>
+          <td>{{document.created_by}}</td>
+          <td>{{document.created_at}}</td>
+          <td><a href="{{document.upload}}">View</a></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+
+    <p class="my-5">You have not added any document!</p>
+
+    {% endif %}
+  </div>
 </div>
 
 {% endblock content %}
