@@ -22,7 +22,7 @@ RUN pip install -r requirements.txt
 COPY . .
 
 # RUN pipenv shell
-RUN python manage.py makemigrations --no-input
+# RUN python manage.py makemigrations --no-input
 
 RUN python manage.py migrate --no-input 
 
