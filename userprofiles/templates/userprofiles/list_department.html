@@ -1,23 +1,39 @@
 {% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
 
-<table class="table">
-  <thead>
-    <tr>
-      <th scope="col">Name</th>
-      <th scope="col">Created By</th>
-      <th scope="col">Created At</th>
-      <th scope="col">Action</th>
-    </tr>
-  </thead>
-  <tbody>
-    {% for department in departments %}
-    <tr>
-      <td>{{department.name}}</td>
-      <td>{{department.created_by}}</td>
-      <td>{{department.created_at}}</td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
+<div>
+  <div class="mt-5 d-flex justify-content-end">
+    <div></div>
+    <div>
+      <a class="btn btn-primary" href="{% url 'add_dept' %}">Add Department</a>
+    </div>
+  </div>
+  {% if departments %}
+  <div class="my-2">
+    <h3>Departments</h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for department in departments %}
+        <tr>
+          <td>{{department.name}}</td>
+          <td>{{department.created_by}}</td>
+          <td>{{department.created_at}}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
 
-{% endblock content %}
+{% else %}
+
+<p class="my-5">There's no department, you can create one now</p>
+
+{% endif %} {% endblock content %}

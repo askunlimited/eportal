@@ -73,7 +73,7 @@ def sign_out(request):
 
 @login_required(login_url="/")
 def list_department(request):
-    departments = get_list_or_404(Department)
+    departments = Department.objects.all()
 
     return render(
         request, "userprofiles/list_department.html", {"departments": departments}
@@ -126,7 +126,7 @@ def delete_department(request, pk):
 
 @login_required(login_url="/")
 def list_users(request):
-    userprofiles = get_list_or_404(Userprofile)
+    userprofiles = Userprofile.objects.all()
 
     return render(
         request, "userprofiles/list_users.html", {"userprofiles": userprofiles}

@@ -1,7 +1,11 @@
 {% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
-<div class="container mt-5 mb-5">
-  <div class="row mt-5">
-    <div class="col">
+<div>
+    <div class="mt-5 d-flex justify-content-end">
+      <div></div>
+      <div>
+        <a class="btn btn-primary" href="{% url 'add_dept' %}">Add Document</a>
+      </div>
+    </div>
       {% if documents %}
       <table class="table">
         <thead>
@@ -25,9 +29,13 @@
           {% endfor %}
         </tbody>
       </table>
-      {% else %} You have not created any folder! {% endif %}
+      {% else %} 
+      
+      <p class="my-5">You have not added any document! </p>
+      
+      {% endif %}
     </div>
-  </div>
+  
 </div>
 
 {% endblock content %}
