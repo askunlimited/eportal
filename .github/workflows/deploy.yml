@@ -39,8 +39,8 @@ jobs:
       uses: appleboy/ssh-action@v1.0.0
       with:
         host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        password: ${{ secrets.PASSWORD }}
+        username: ${{ secrets.HOST_USER }}
+        password: ${{ secrets.HOST_PASS }}
         port: ${{ secrets.PORT }}
         script: sudo bash ./deploy.sh
 
