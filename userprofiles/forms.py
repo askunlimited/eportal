@@ -1,4 +1,3 @@
-
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
 from django import forms
@@ -39,7 +38,7 @@ class SignUpForm(UserCreationForm):
         self.fields["username"].widget.attrs["class"] = "form-control"
         self.fields["password1"].widget.attrs["class"] = "form-control"
         self.fields["password2"].widget.attrs["class"] = "form-control"
-        self.fields['password1'].help_text = None
+        self.fields["password1"].help_text = None
 
 
 class AddDepartmentForm(forms.ModelForm):
@@ -63,9 +62,9 @@ class EditProfileForm(forms.ModelForm):
     telephone = forms.CharField(
         max_length=50, widget=forms.TextInput(attrs={"class": "form-control"})
     )
-    # profile_picture = forms.FileField(
-    #     max_length=50, widget=forms.FileField(attrs={"class": "form-control"})
-    # )
+    department = forms.ModelChoiceField(queryset=Department.objects.all())
+
+    profile_picture = forms.FileField()
 
     class Meta:
         model = Userprofile
@@ -73,6 +72,7 @@ class EditProfileForm(forms.ModelForm):
             "first_name",
             "last_name",
             "telephone",
+            "department",
             # "email",
-            # "profile_picture",
+            "profile_picture",
         )

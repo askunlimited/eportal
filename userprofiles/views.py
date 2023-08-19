@@ -135,16 +135,18 @@ def list_users(request):
 
 @login_required(login_url="/")
 def edit_userprofile(request, pk):
-    department = get_object_or_404(Userprofile, pk=pk)
+    userprofile = get_object_or_404(Userprofile, pk=pk)
     if request.method == "POST":
-        form = EditProfileForm(request.POST, instance=department)
+        form = EditProfileForm(
+            request.POST or None, request.FILES or None, instance=userprofile
+        )
         if form.is_valid():
             form.save()
 
-            messages.success(request, "Department edited successfully")
+            messages.success(request, "Profile edited successfully")
             return redirect("dashboard")
         else:
-            messages.error(request, "Department not edited, try again")
+            messages.error(request, "Profile not edited, try again")
     else:
-        form = EditProfileForm(instance=department)
+        form = EditProfileForm(instance=userprofile)
     return render(request, "userprofiles/edit_userprofile.html", {"form": form})
