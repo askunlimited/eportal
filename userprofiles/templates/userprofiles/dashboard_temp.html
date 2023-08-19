@@ -5,6 +5,10 @@
     <!-- Required meta tags -->
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title> NSIB::
+      {% block title %}
+      {% endblock %}
+    </title>
 
     <!-- Bootstrap CSS -->
     <link
@@ -57,20 +61,6 @@
     </style>
   </head>
   <body>
-    {% if messages %} {% for message in messages %}
-    <div class="container mt-5">
-      <div class="alert alert-warning alert-dismissible fade show" role="alert">
-        {{message}}
-        <button
-          type="button"
-          class="btn-close"
-          data-bs-dismiss="alert"
-          aria-label="Close"
-        ></button>
-      </div>
-    </div>
-    {% endfor %} {% endif %} 
-
     <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 d-none d-sm-block" href="#"
     >NSIB Nigeria</a
@@ -94,8 +84,10 @@
     aria-label="Search"
   />
   {% endcomment %}
+  {% comment %} <div class="text-white float-right">
+  </div> {% endcomment %}
   <div class="navbar-nav ml-5">
-    <div class="nav-item text-nowrap">
+    <div class="nav-item text-nowrap text-white">
       <a class="nav-link px-3" href="{% url 'log-out' %}">Sign out</a>
     </div>
   </div>
@@ -158,6 +150,12 @@
               Profile
             </a>
           </li>
+          <hr class="my-2" style="color: blue-200" />
+          <li class="nav-item">
+              <span data-feather="layers"></span>
+              Signed in as: <br>
+              <strong>{{ request.user.username }}</strong>
+          </li>
         </ul>
 
         <h6
@@ -168,6 +166,20 @@
     </nav>
 
     <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      {% if messages %} {% for message in messages %}
+        <div class="container mt-5">
+          <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{message}}
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="alert"
+              aria-label="Close"
+            ></button>
+          </div>
+        </div>
+        {% endfor %} {% endif %} 
+
       {% block content %}
       
       {% endblock content %}

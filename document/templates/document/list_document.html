@@ -1,4 +1,7 @@
 {% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
+{% block title %}
+Documents
+{% endblock %}
 <div>
   <div class="mt-5 d-flex justify-content-end">
     <div></div>
@@ -28,7 +31,7 @@
           <td>{{document.description}}</td>
           <td>{{document.created_by}}</td>
           <td>{{document.created_at}}</td>
-          <td><a href="{{document.upload}}">View</a></td>
+          <td><a class="btn btn-warning btn-small" href="{{document.upload}}">View</a></td>
         </tr>
         {% endfor %}
       </tbody>

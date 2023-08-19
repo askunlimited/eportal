@@ -62,7 +62,7 @@ class EditProfileForm(forms.ModelForm):
     telephone = forms.CharField(
         max_length=50, widget=forms.TextInput(attrs={"class": "form-control"})
     )
-    department = forms.ModelChoiceField(queryset=Department.objects.all())
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), widget=forms.Select(attrs={"class":"form-control"}))
 
     profile_picture = forms.FileField()
 

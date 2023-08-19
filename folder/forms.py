@@ -13,7 +13,7 @@ class AddFolderForm(forms.ModelForm):
         max_length=150, widget=forms.TextInput(attrs={"class": "form-control"})
     )
 
-    department = forms.ModelChoiceField(queryset=Department.objects.all())
+    department = forms.ModelChoiceField(queryset=Department.objects.all(), widget=forms.Select(attrs={"class":"form-control"}))
 
     class Meta:
         model = Folder

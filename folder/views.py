@@ -11,10 +11,8 @@ from .models import Folder
 @login_required(login_url="/")
 def list_folder(request):
     folders = Folder.objects.all()
-    # folders = get_list_or_404(
-    #     Folder,
-    # )
-    return render(request, "folder/list_folder.html", {"folders": folders})
+    form = AddFolderForm()
+    return render(request, "folder/list_folder.html", { "folders": folders, "form":form })
 
 @login_required(login_url="/")
 def add_folder(request):
@@ -25,7 +23,7 @@ def add_folder(request):
             folder.created_by = request.user
             folder.save()
             messages.success(request, "Folder added successfully")
-            return redirect("dashboard")
+            return redirect("all_folders")
         else:
             messages.error(request, "Folder not created, try again")
     else:
@@ -42,7 +40,7 @@ def edit_folder(request, pk):
             form.save()
 
             messages.success(request, "Folder edited successfully")
-            return redirect("dashboard")
+            return redirect("all_folders")
         else:
             messages.error(request, "Folder not edited, try again")
     else:
@@ -54,4 +52,4 @@ def delete_folder(request, pk):
     folder = Folder.objects.get(pk=pk)
     # folder = get_object_or_404(Folder, pk=pk)
     folder.delete()
-    return redirect("dashboard")
+    return redirect("all_folders")
