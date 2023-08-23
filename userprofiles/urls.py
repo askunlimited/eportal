@@ -20,8 +20,8 @@ urlpatterns = [
     path("department/<int:pk>/edit/", edit_department, name="edit_dept"),
     path("department/<int:pk>/delete/", delete_department, name="delete_dept"),
     path("dashboard/", dashboard, name="dashboard"),
-    path("departments/", list_department, name="list_dept"),
+    path("departments/", list_department, name="all_departments"),
     path("userprofile/<int:pk>/edit/", edit_userprofile, name="edit_profile"),
-    path("userprofiles/", list_users, name="list_users"),
+    path("userprofiles/", list_users, name="all_users"),
     # path("staff/", list_users, name="list_users"),
 ]

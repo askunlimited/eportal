@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", default=True)
 PRODUCTION = int(os.environ.get("PRODUCTION", default=1))
 # ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS = ["*"]
+ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
 
 
 # Application definition
@@ -77,11 +77,8 @@ WSGI_APPLICATION = "nsib.wsgi.application"
 #     }
 # }
 # postgres://vppmewlq:QiB-q4_ILPMoqa_lwk-XYAeKZbv1AiaD@trumpet.db.elephantsql.com/vppmewlq
-DATABASES = {
-    'default': dj_database_url.parse(
-        os.environ.get("DB"),
-        conn_max_age=600)
-    }
+
+DATABASES = {"default": dj_database_url.parse(os.environ.get("DB"), conn_max_age=600)}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators

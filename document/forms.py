@@ -1,5 +1,6 @@
 from django import forms
 from .models import Document
+from .models import Folder
 
 
 class AddDocumentForm(forms.ModelForm):
@@ -11,14 +12,16 @@ class AddDocumentForm(forms.ModelForm):
         max_length=150, widget=forms.TextInput(attrs={"class": "form-control"})
     )
 
-    # upload = forms.FileField(
-    #     max_length=150, widget=forms.FileField(attrs={"class": "form-control"})
-    # )
+    folder = forms.ModelChoiceField(queryset=Folder.objects.all())
+
+    upload = forms.FileField()
 
     class Meta:
         model = Document
         fields = (
             "name",
             "description",
+            "folder",
+            "upload",
             # "created_by",
         )

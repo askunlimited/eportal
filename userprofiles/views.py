@@ -14,6 +14,7 @@ from django.contrib import messages
 
 from .forms import SignUpForm, AddDepartmentForm, EditProfileForm
 from .models import Userprofile, Department
+from django.contrib.auth.models import User
 
 # Create your views here.
 
@@ -39,7 +40,7 @@ def register_user(request):
 
             user = authenticate(username=username, password=password)
             login(request, user)
-            return redirect("signup")
+            return redirect("login")
     else:
         form = SignUpForm()
     return render(request, "userprofiles/sign-up.html", {"form": form})
@@ -57,9 +58,11 @@ def login_user(request):
             messages.error(
                 request, "There's an error logging in, check your login details"
             )
-            return redirect("dashboard")
+            return redirect("/")
 
     else:
+        if request.user.is_authenticated:
+            return redirect("dashboard")
         return render(request, "userprofiles/log-in.html", {})
 
 
@@ -73,10 +76,17 @@ def sign_out(request):
 
 @login_required(login_url="/")
 def list_department(request):
-    departments = get_list_or_404(Department)
+    
+    departments = Department.objects.all()
+    user = User.objects.get(id=request.user.id)
+    print("USER: ", user)
+    userp = user.user_profiles.get()
+    print(userp.department)
+
+    form = AddDepartmentForm()
 
     return render(
-        request, "userprofiles/list_department.html", {"departments": departments}
+        request, "userprofiles/list_department.html", {"departments": departments, "form":form}
     )
 
 
@@ -89,7 +99,7 @@ def add_department(request):
             department.created_by = request.user
             department.save()
             messages.success(request, "Department added successfully")
-            return redirect("dashboard")
+            return redirect("all_departments")
         else:
             messages.error(request, "Department not created, try again")
     else:
@@ -106,7 +116,7 @@ def edit_department(request, pk):
             form.save()
 
             messages.success(request, "Department edited successfully")
-            return redirect("dashboard")
+            return redirect("all_departments")
         else:
             messages.error(request, "Department not edited, try again")
     else:
@@ -118,7 +128,7 @@ def edit_department(request, pk):
 def delete_department(request, pk):
     department = get_object_or_404(Department, created_by=request.user, pk=pk)
     department.delete()
-    return redirect("list_dept")
+    return redirect("all_departments")
 
 
 # Userprofiles
@@ -126,7 +136,7 @@ def delete_department(request, pk):
 
 @login_required(login_url="/")
 def list_users(request):
-    userprofiles = get_list_or_404(Userprofile)
+    userprofiles = Userprofile.objects.all()
 
     return render(
         request, "userprofiles/list_users.html", {"userprofiles": userprofiles}
@@ -135,16 +145,19 @@ def list_users(request):
 
 @login_required(login_url="/")
 def edit_userprofile(request, pk):
-    department = get_object_or_404(Userprofile, pk=pk)
+    userprofile = get_object_or_404(Userprofile, pk=pk)
+    # userprofile = Userprofile.objects.get(id=pk)
     if request.method == "POST":
-        form = EditProfileForm(request.POST, instance=department)
+        form = EditProfileForm(
+            request.POST or None, instance=userprofile
+        )
         if form.is_valid():
             form.save()
 
-            messages.success(request, "Department edited successfully")
-            return redirect("dashboard")
+            messages.success(request, "Profile edited successfully")
+            return redirect("all_users")
         else:
-            messages.error(request, "Department not edited, try again")
+            messages.error(request, "Profile not edited, try again")
     else:
-        form = EditProfileForm(instance=department)
+        form = EditProfileForm(instance=userprofile)
     return render(request, "userprofiles/edit_userprofile.html", {"form": form})

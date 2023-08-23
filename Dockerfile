@@ -23,14 +23,15 @@ COPY . .
 
 # RUN python manage.py makemigrations --no-input
 
-# RUN python manage.py migrate --no-input 
+RUN python manage.py migrate --no-input 
 
-# RUN python manage.py collectstatic --no-input -v 2
+RUN python manage.py collectstatic --no-input -v 2
 
 # expose the port 8000
 EXPOSE 8000
 
 
 # define the default command to run when starting the container
-# CMD ["gunicorn", "--chdir", "core", "--bind", ":8000", "core.wsgi:application", "--reload"]
-CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+CMD ["gunicorn", "--chdir", "nsib", "--bind", ":8000", "nsib.wsgi:application", "--reload"]
+# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+
