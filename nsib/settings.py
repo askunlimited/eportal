@@ -11,7 +11,7 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 DEBUG = os.environ.get("DEBUG", default=True)
 PRODUCTION = int(os.environ.get("PRODUCTION", default=1))
 # ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(" ")
-ALLOWED_HOSTS = ["https://*.nsib.gov.ng", "http://*.nsib.gov.ng", "*.nsib.gov.ng", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["https://eportal.nsib.gov.ng", "http://eportal.nsib.gov.ng", "*.nsib.gov.ng", "localhost", "127.0.0.1"]
 
 
 # Application definition
