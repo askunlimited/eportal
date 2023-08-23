@@ -1,4 +1,8 @@
-{% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
+{% extends 'userprofiles/dashboard_temp.html' %} 
+{% block title %}
+Edit User Profile
+{% endblock %}
+{% block content %}
 
 <div>
   <div class="my-5">
@@ -8,7 +12,7 @@
         {% csrf_token %} 
         {{form.as_p}}
 
-        <input type="submit" value="Submit" class="btn btn-primary mt-5" />
+        <input type="submit" value="Update Profile" class="btn btn-primary mt-5" />
       </form>
     </div>
   </div>

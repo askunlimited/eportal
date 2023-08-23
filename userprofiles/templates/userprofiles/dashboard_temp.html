@@ -35,7 +35,7 @@
       sizes="16x16"
       type="image/png"
     />
-    <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json" />
+    {% comment %} <link rel="manifest" href="/docs/5.0/assets/img/favicons/manifest.json" /> {% endcomment %}
     <link
       rel="mask-icon"
       href="/docs/5.0/assets/img/favicons/safari-pinned-tab.svg"
@@ -43,6 +43,7 @@
     />
     <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico" />
     <meta name="theme-color" content="#7952b3" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
 
     <style>
       .bd-placeholder-img {
@@ -197,5 +198,34 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
+    <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
+
+    <script>
+      $(document).ready(function(){
+
+        var table = $('#datatable').DataTable();
+
+        table.on('click', '.edit', function() {
+
+          $tr = $(this).closest('tr');
+    
+          if ($($tr).hasClass('child')) {
+            $tr = $tr.prev('.parent');
+          }
+
+          var data = table.row($tr).data();
+
+          console.log(data[0])
+
+          $('#dept_name').val(data[0]);
+
+
+          $('#editForm').attr('action', 'department/' + data[0] + '/edit/');
+          $('#editModal').modal('show');
+    
+        });
+      });
+    </script>
   </body>
 </html>

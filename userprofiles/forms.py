@@ -43,7 +43,7 @@ class SignUpForm(UserCreationForm):
 
 class AddDepartmentForm(forms.ModelForm):
     name = forms.CharField(
-        max_length=50, widget=forms.TextInput(attrs={"class": "form-control"})
+        max_length=50, widget=forms.TextInput(attrs={"class": "form-control", "id":"dept_name"})
     )
 
     class Meta:

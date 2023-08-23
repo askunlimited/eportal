@@ -146,15 +146,16 @@ def list_users(request):
 @login_required(login_url="/")
 def edit_userprofile(request, pk):
     userprofile = get_object_or_404(Userprofile, pk=pk)
+    # userprofile = Userprofile.objects.get(id=pk)
     if request.method == "POST":
         form = EditProfileForm(
-            request.POST or None, request.FILES or None, instance=userprofile
+            request.POST or None, instance=userprofile
         )
         if form.is_valid():
             form.save()
 
             messages.success(request, "Profile edited successfully")
-            return redirect("dashboard")
+            return redirect("all_users")
         else:
             messages.error(request, "Profile not edited, try again")
     else:

@@ -22,12 +22,13 @@ class Userprofile(models.Model):
     last_name = models.CharField(max_length=150)
     telephone = models.CharField(max_length=16)
     email = models.CharField(max_length=150)
-    department = models.ManyToManyField(
+    department = models.ForeignKey(
         Department,
         related_name="user_department",
         default=1,
         unique=False,
         blank=True,
+        on_delete=models.CASCADE
     )
     profile_picture = models.ImageField(upload_to="profile_pics/")
 
