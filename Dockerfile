@@ -32,6 +32,6 @@ EXPOSE 8000
 
 
 # define the default command to run when starting the container
-CMD ["gunicorn", "--chdir", "nsib", "--bind", ":8000", "nsib.wsgi:application", "--reload"]
-# CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
+# CMD ["gunicorn", "--chdir", "nsib", "--bind", ":8000", "nsib.wsgi:application", "--reload"]
+CMD ["python", "manage.py", "runserver", "0.0.0.0:8000"]
 
