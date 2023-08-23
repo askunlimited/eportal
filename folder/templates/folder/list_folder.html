@@ -1,32 +1,79 @@
-{% extends 'userprofiles/dashboard_temp.html' %} {% block content %}
-<div class="container mt-5 mb-5">
-  <div class="row mt-5">
-    <div class="col">
-      {% if folder %}
-      <table class="table">
-        <thead>
-          <tr>
-            <th scope="col">Name</th>
-            <th scope="col">Description</th>
-            <th scope="col">Created By</th>
-            <th scope="col">Created At</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for folder in folders %}
-          <tr>
-            <td>{{folder.name}}</td>
-            <td>{{folder.description}}</td>
-            <td>{{folder.created_by}}</td>
-            <td>{{folder.created_at}}</td>
-            <td><a href="{% url 'edit_profile' userprofile.id %}">Edit</a></td>
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      {% else %} You have not created any folder! {% endif %}
+{% extends 'userprofiles/dashboard_temp.html' %} 
+
+{% block title %}
+Folders
+{% endblock %}
+
+{% block content %}
+<div>
+  <div class="mt-5 d-flex justify-content-end">
+    <div></div>
+    <div>
+      {% comment %} <a class="btn btn-primary" href="{% url 'add_folder' %}">Add Folder</a> {% endcomment %}
+       <!--          -->
+
+      <!-- Button trigger modal -->
+<button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+  Add Folder
+</button>
+
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Add Folder</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <form action="{% url 'add_folder' %}" method="POST">
+      <div class="modal-body">
+        {% csrf_token %} 
+          {{form.as_p}}
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Save changes</button>
+        </div>
+      </form>
     </div>
+  </div>
+</div>
+      <!--          -->
+    </div>
+  </div>
+  {% if folders %}
+  <div class="my-2 mt-5">
+    <h4 class="text-md-start">Folders</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Name</th>
+          <th scope="col">Description</th>
+          <th scope="col">Created By</th>
+          <th scope="col">Created At</th>
+          <th scope="col">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for folder in folders %}
+        <tr>
+          <td>{{folder.name}}</td>
+          <td>{{folder.description}}</td>
+          <td>{{folder.created_by}}</td>
+          <td>{{folder.created_at}}</td>
+          <td>
+            <a class="btn btn-warning btn-sm" href="{% url 'edit_folder' folder.id %}">View</a>
+            <a class="btn btn-primary btn-sm" href="{% url 'edit_folder' folder.id %}">Edit</a>
+            <a class="btn btn-danger btn-sm" href="{% url 'delete_folder' folder.id %}">Delete</a>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% else %}
+    <p class="my-5">You have not created any folder!</p>
+
+    {% endif %}
   </div>
 </div>
 
