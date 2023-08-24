@@ -31,7 +31,8 @@ def add_folder(request):
     return render(request, "folder/add_folder.html", {"form": form})
 
 @login_required(login_url="/")
-def edit_folder(request, pk):
+def edit_folder(request):
+    pk = request.POST["id"]
     folder = Folder.objects.get(pk=pk)
     # folder = get_object_or_404(Folder, pk=pk)
     if request.method == "POST":

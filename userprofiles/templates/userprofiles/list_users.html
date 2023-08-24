@@ -3,10 +3,42 @@
 Users
 {% endblock %}
 {% block content %}
+
+<div class="mt-5 d-flex justify-content-end">
+  <div></div>
+  <div>
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add User
+    </button>
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Add New User</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+          <form id="editForm" action="{% url 'signup' %}" method="POST">
+          <div class="modal-body">
+              {% csrf_token %} 
+              {{form.as_p}}
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary">Add User</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <!--  End Department Modal -->
+  </div>
+</div>
 <div class="container mt-5 mb-5">
+  <h4 class="text-md-start">All Users</h4>
   <div class="row mt-5">
     <div class="col">
-      <table class="table">
+      <table class="table" id="datatable">
         <thead>
           <tr>
             <th scope="col">First Name</th>
@@ -24,7 +56,7 @@ Users
             <td>
               <a class="btn btn-warning btn-sm" href="{% url 'edit_profile' userprofile.id %}">View</a>
               <a class="btn btn-primary btn-sm" href="{% url 'edit_profile' userprofile.id %}">Edit</a>
-              <a class="btn btn-danger btn-sm" href="{% url 'edit_profile' userprofile.id %}">Delete</a>
+              <a class="btn btn-danger btn-sm" href="{% url 'delete_profile' userprofile.id %}">Delete</a>
             </td>
           </tr>
           {% endfor %}

@@ -8,7 +8,7 @@ from userprofiles.models import Department
 class Folder(models.Model):
     name = models.CharField(max_length=255, blank=False)
     description = models.CharField(max_length=255, blank=True)
-    department = models.ManyToManyField(Department, related_name="folders")
+    department = models.ForeignKey(Department, related_name="folders", on_delete=models.CASCADE)
     created_by = models.ForeignKey(
         User, related_name="folders", on_delete=models.CASCADE
     )

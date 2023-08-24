@@ -8,6 +8,7 @@ from .views import (
     list_department,
     delete_department,
     edit_userprofile,
+    delete_userprofile,
     list_users,
     sign_out,
 )
@@ -15,13 +16,15 @@ from .views import (
 urlpatterns = [
     path("signup/", register_user, name="signup"),
     path("", login_user, name="login"),
-    path("log-out/", sign_out, name="log-out"),
+    path("logout/", sign_out, name="logout"),
     path("add_department/", add_department, name="add_dept"),
-    path("department/<int:pk>/edit/", edit_department, name="edit_dept"),
+    # path("department/<int:pk>/edit/", edit_department, name="edit_dept"),
+    path("department/edit/", edit_department, name="update_dept"),
     path("department/<int:pk>/delete/", delete_department, name="delete_dept"),
     path("dashboard/", dashboard, name="dashboard"),
     path("departments/", list_department, name="all_departments"),
     path("userprofile/<int:pk>/edit/", edit_userprofile, name="edit_profile"),
-    path("userprofiles/", list_users, name="all_users"),
+    path("userprofile/<int:pk>/delete/", delete_userprofile, name="delete_profile"),
+    path("users/", list_users, name="all_users"),
     # path("staff/", list_users, name="list_users"),
 ]

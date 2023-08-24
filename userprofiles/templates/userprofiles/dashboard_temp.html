@@ -46,120 +46,12 @@
     <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico" />
     <meta name="theme-color" content="#7952b3" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
-
-    {% comment %} <style>
-      .bd-placeholder-img {
-        font-size: 1.125rem;
-        text-anchor: middle;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        user-select: none;
-      }
-
-      @media (min-width: 768px) {
-        .bd-placeholder-img-lg {
-          font-size: 3.5rem;
-        }
-      }
-    </style> {% endcomment %}
   </head>
   <body>
     {% include 'userprofiles/navbar.html' %}
-{% comment %} 
-    <header class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow">
-  <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 d-none d-sm-block" href="#"
-    >NSIB Nigeria</a
-  >
-  <button
-    class="navbar-toggler position-absolute d-md-none collapsed mr-5"
-    type="button"
-    data-bs-toggle="collapse"
-    data-bs-target="#sidebarMenu"
-    aria-controls="sidebarMenu"
-    aria-expanded="false"
-    aria-label="Toggle navigation"
-  >
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  {% comment %} dropdown {% endcomment %}
-
-  
-  {% comment %} dropdown {% endcomment %}
-  
-
-
-
-    <!-- offcanvas -->
-    <div
-      class="offcanvas offcanvas-start sidebar-nav bg-dark"
-      tabindex="-1"
-      id="sidebar"
-    >
-      <div class="offcanvas-body p-0">
-        <nav class="navbar-dark">
-          <ul class="navbar-nav mt-5">
-            <li>
-              <div class="text-muted small fw-bold text-uppercase px-3">
-                NSIB
-              </div>
-            </li>
-            <li>
-        <a href="#" class="nav-link ps-3 py-3 active">
-          <span class="me-2"><i class="bi bi-speedometer fs-4"></i></span>
-          <span>Dashboard</span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#" class="nav-link ps-3 py-3">
-          <span class="me-2"><i class="bi bi-people fs-4"></i></span>
-          <span>Staff</span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#" class="nav-link ps-3 py-3">
-          <span class="me-2"><i class="bi bi-archive fs-4"></i></span>
-          <span>Departments</span>
-        </a>
-      </li>
-
-      <li>
-        <a href="#" class="nav-link ps-3 py-3">
-          <span class="me-2"><i class="bi bi-folder2-open fs-4"></i></span>
-          <span>Folders</span>
-        </a>
-      </li>
-      <li>
-        <a href="#" class="nav-link ps-3 py-3">
-          <span class="me-2"><i class="bi bi-file-pdf fs-4"></i></span>
-          <span>Documents</span>
-        </a>
-      </li>
-          </ul>
-        </nav>
-      </div>
-    </div>
-    {% comment %} Sidebar {% endcomment %}
-
-    
-
    
     <main class="mt-5">
       <div class="container-fluid">
-        {% if messages %} {% for message in messages %}
-        <div class="container mt-5">
-          <div class="alert alert-success alert-dismissible fade show" role="alert">
-            {{message}}
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="alert"
-              aria-label="Close"
-            ></button>
-          </div>
-        </div>
-        {% endfor %} {% endif %} 
         <div class="row">
           {% comment %} <--- Sidebar Included ----> {% endcomment %}
 
@@ -167,6 +59,19 @@
 
           {% comment %} <--- Sidebar Included ----> {% endcomment %}
           <div class="col-md-10 pt-5">
+            {% if messages %} {% for message in messages %}
+              <div class="container mt-5">
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                  {{message}}
+                  <button
+                    type="button"
+                    class="btn-close"
+                    data-bs-dismiss="alert"
+                    aria-label="Close"
+                  ></button>
+                </div>
+              </div>
+            {% endfor %} {% endif %} 
             
             {% block content %}{% endblock content %}
           </div>
@@ -190,32 +95,13 @@
     ></script>
     <script src="https://code.jquery.com/jquery-3.7.0.js"></script>
     <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-
     <script>
       $(document).ready(function(){
 
         var table = $('#datatable').DataTable();
-
-        table.on('click', '.edit', function() {
-
-          $tr = $(this).closest('tr');
-    
-          if ($($tr).hasClass('child')) {
-            $tr = $tr.prev('.parent');
-          }
-
-          var data = table.row($tr).data();
-
-          console.log(data[0])
-
-          $('#dept_name').val(data[0]);
-
-
-          $('#editForm').attr('action', 'department/' + data[0] + '/edit/');
-          $('#editModal').modal('show');
-    
-        });
       });
     </script>
+    {% block script %}
+    {% endblock script %}
   </body>
 </html>

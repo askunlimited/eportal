@@ -24,6 +24,7 @@ def dashboard(request):
     return render(request, "userprofiles/dashboard.html")
 
 
+# @login_required(login_url="/")
 def register_user(request):
     if request.method == "POST":
         form = SignUpForm(request.POST)
@@ -39,9 +40,16 @@ def register_user(request):
             password = form.cleaned_data["password1"]
 
             user = authenticate(username=username, password=password)
-            login(request, user)
-            return redirect("login")
+            # login(request, user)
+            messages.error(request, "User created sucessfully.")
+
+            return redirect("all_users")
+        else:
+            messages.error(request, "User creation failed.")
+            return redirect('all_users')
     else:
+        # if not request.user.is_authenticated:
+        # return redirect('login')
         form = SignUpForm()
     return render(request, "userprofiles/sign-up.html", {"form": form})
 
@@ -76,6 +84,8 @@ def sign_out(request):
 
 @login_required(login_url="/")
 def list_department(request):
+    if not request.user.is_staff:
+        return redirect('dashboard')
     
     departments = Department.objects.all()
     user = User.objects.get(id=request.user.id)
@@ -84,9 +94,15 @@ def list_department(request):
     print(userp.department)
 
     form = AddDepartmentForm()
+    # editForm = EditDepartmentForm()
+    context = {
+        "departments": departments, 
+        # "editForm": editForm,
+        "form":form
+    }
 
     return render(
-        request, "userprofiles/list_department.html", {"departments": departments, "form":form}
+        request, "userprofiles/list_department.html", context
     )
 
 
@@ -107,9 +123,27 @@ def add_department(request):
     return render(request, "userprofiles/add_department.html", {"form": form})
 
 
-@login_required(login_url="/")
-def edit_department(request, pk):
-    department = get_object_or_404(Department, created_by=request.user, pk=pk)
+# @login_required(login_url="/")
+# def edit_department(request, pk):
+#     department = get_object_or_404(Department, created_by=request.user, pk=pk)
+#     if request.method == "POST":
+#         form = AddDepartmentForm(request.POST, instance=department)
+#         if form.is_valid():
+#             form.save()
+
+#             messages.success(request, "Department edited successfully")
+#             return redirect("all_departments")
+#         else:
+#             messages.error(request, "Department not edited, try again")
+#     else:
+#         form = AddDepartmentForm(instance=department)
+#     return render(request, "userprofiles/add_department.html", {"form": form})
+
+def edit_department(request):
+    print(request.POST)
+    pk = request.POST['id']
+    department = get_object_or_404(Department, pk=pk)
+    print("DEPARTMENT: ", department)
     if request.method == "POST":
         form = AddDepartmentForm(request.POST, instance=department)
         if form.is_valid():
@@ -120,8 +154,8 @@ def edit_department(request, pk):
         else:
             messages.error(request, "Department not edited, try again")
     else:
-        form = AddDepartmentForm(instance=department)
-    return render(request, "userprofiles/add_department.html", {"form": form})
+        # form = AddDepartmentForm(instance=department)
+        return redirect('all_departments')
 
 
 @login_required(login_url="/")
@@ -137,10 +171,23 @@ def delete_department(request, pk):
 @login_required(login_url="/")
 def list_users(request):
     userprofiles = Userprofile.objects.all()
+    form = SignUpForm()
 
     return render(
-        request, "userprofiles/list_users.html", {"userprofiles": userprofiles}
+        request, "userprofiles/list_users.html", {"userprofiles": userprofiles, "form":form}
     )
+
+
+@login_required(login_url="/")
+def delete_userprofile(request, pk):
+    profile = Userprofile.objects.get(pk=pk)
+    user = User.objects.get(pk = profile.user.id)
+
+    print("Profile: ", profile.user.id)
+    print("User: ", user.id)
+    profile.delete()
+    user.delete()
+    return redirect('all_users')
 
 
 @login_required(login_url="/")
