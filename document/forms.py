@@ -12,7 +12,7 @@ class AddDocumentForm(forms.ModelForm):
         max_length=150, widget=forms.TextInput(attrs={"class": "form-control"})
     )
 
-    folder = forms.ModelChoiceField(queryset=Folder.objects.all())
+    folder = forms.ModelChoiceField(queryset=Folder.objects.all(), widget=forms.Select(attrs={"class":"form-control"}))
 
     upload = forms.FileField()
 
@@ -25,3 +25,7 @@ class AddDocumentForm(forms.ModelForm):
             "upload",
             # "created_by",
         )
+        # widget = {
+        #     'file' : forms.FileInput(attrs={'class': 'form-control',
+        #                                      'id' : 'input-file'}),
+        #     }

@@ -1,0 +1,75 @@
+{% extends 'userprofiles/dashboard_temp.html' %} 
+
+{% block title %}
+{{ document.name }}
+{% endblock %}
+
+{% block content %}
+<div>
+  <div class="mt-5 d-flex justify-content-end">
+    <div></div>
+  </div>
+  <div class="my-2 mt-5">
+    <h4 class="text-md-start">{{ document.name }} - Documents</h4>
+    <p>{{ document.description }} <small>({{ document.created_at }})</small></p>
+    <hr/>
+    {% if document %}
+        <p>{{ document.name }} </p>
+        <p>{{ document.description }} </p>
+        <p>
+            <a href="{{ request.META.HTTP_NAME }}/media/{{ document.upload }}">{{ request.META.HTTP_NAME }}/media/{{ document.upload }}</a>
+            <object 
+                data='/media/{{ document.upload }}'
+                type="application/pdf" 
+                width="100%" 
+                height="500px"
+                >
+            </object>
+            <iframe
+                src='/media/{{ document.upload }}'
+                width="70%" 
+                height="500px"
+                >
+                <p>This browser does not support PDF!</p>
+            </iframe>
+        </p>
+    {% else %}
+    <p class="my-5">You have not created any document under the <b>"{{ document.name }}"</b> document!</p>
+
+    {% endif %}
+  </div>
+</div>
+
+{% endblock content %}
+
+
+{% block script %}
+<script>
+  const editModal = document.getElementById('editModal')
+  editModal.addEventListener('show.bs.modal', event => {
+    // Button that triggered the modal
+  const button = event.relatedTarget
+  // Extract info from data-bs-* attributes
+  const document_id = button.getAttribute('data-bs-id')
+  const document_name = button.getAttribute('data-bs-name')
+  const document_description = button.getAttribute('data-bs-description')
+  const document_department = button.getAttribute('data-bs-department')
+  
+  /**console.log("ID: ", document_id)
+  console.log("Name: ", document_name)
+  console.log("Desc: ", document_description)  **/
+  console.log("Dept: ", document_department)
+  const documentId = editModal.querySelector('#id')
+  const documentName = editModal.querySelector('#name')
+  const documentDescription = editModal.querySelector('#description')
+  const documentDepartment = editModal.querySelector('#department')
+
+  document.querySelector('#leaveCode').value = document_department
+  
+  documentId.value = document_id
+  documentName.value = document_name
+  documentDescription.value = document_description
+  // documentDepartment.value = document_department
+})
+</script>
+{% endblock %}

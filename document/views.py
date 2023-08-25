@@ -12,7 +12,12 @@ from .models import Document
 @login_required(login_url="/")
 def list_document(request):
     documents = Document.objects.filter(created_by=request.user)
-    return render(request, "document/list_document.html", {"documents": documents})
+    form = AddDocumentForm()
+    context = {
+        "documents": documents,
+        "form":form
+    }
+    return render(request, "document/list_document.html", context)
 
 
 @login_required(login_url="/")
@@ -24,7 +29,7 @@ def add_document(request):
             document.created_by = request.user
             document.save()
             messages.success(request, "document added successfully")
-            return redirect("dashboard")
+            return redirect("all_folder")
         else:
             messages.error(request, "document not created, try again")
     else:

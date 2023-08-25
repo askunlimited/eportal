@@ -78,6 +78,7 @@ Departments
     <table class="table" id="datatable">
       <thead>
         <tr>
+          <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Created By</th>
           <th scope="col">Created At</th>
@@ -86,6 +87,7 @@ Departments
       </thead>
       <tfoot>
         <tr>
+          <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Created By</th>
           <th scope="col">Created At</th>
@@ -95,6 +97,7 @@ Departments
       <tbody>
         {% for department in departments %}
         <tr>
+          <td class="fs-6">{{ forloop.counter }}</td>
           <td class="fs-6">{{department.name}}</td>
           <td class="fs-6">{{department.created_by}}</td>
           <td class="fs-6">{{department.created_at}}</td>

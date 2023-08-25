@@ -1,7 +1,7 @@
 {% extends 'userprofiles/dashboard_temp.html' %} 
 
 {% block title %}
-Documents
+{{ folder.name }} - Documents
 {% endblock %}
 
 {% block content %}
@@ -11,7 +11,7 @@ Documents
     <div>
       <!-- Button trigger modal -->
       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
-        Add Document
+        Add document to folder
       </button>
 
       <!-- Modal -->
@@ -60,9 +60,11 @@ Documents
       </div>
     </div>
   </div>
-  {% if documents %}
   <div class="my-2 mt-5">
-    <h4 class="text-md-start">Documents</h4>
+    <h4 class="text-md-start">{{ folder.name }} - Documents</h4>
+    <p>{{ folder.description }} <small>({{ folder.created_at }})</small></p>
+    <hr/>
+    {% if documents %}
     <table class="table">
       <thead>
         <tr>
@@ -93,7 +95,7 @@ Documents
           <td>{{document.created_by}}</td>
           <td>{{document.created_at}}</td>
           <td>
-            <a class="btn btn-warning btn-sm" href="#">View</a>
+            <a class="btn btn-warning btn-sm" href="{% url 'view_document' document.id %}">View</a>
             
             <button type="button" class="btn btn-primary btn-sm"
               data-bs-toggle="modal" 
@@ -105,14 +107,14 @@ Documents
               >
               Edit
             </button>
-            <a class="btn btn-danger btn-sm" href="{% url 'delete_document' document.id %}">Delete</a>
+            <a class="btn btn-danger btn-sm" href="#">Delete</a>
           </td>
         </tr>
         {% endfor %}
       </tbody>
     </table>
     {% else %}
-    <p class="my-5">You have not created any document!</p>
+    <p class="my-5">You have not created any document under the <b>"{{ folder.name }}"</b> folder!</p>
 
     {% endif %}
   </div>
