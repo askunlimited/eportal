@@ -126,29 +126,37 @@
 
 {% block script %}
 <script>
-  {% comment %} element = document.getElementById("folder");
-  element.value = {{ deparfoldertment }}; {% endcomment %}
+  element = document.getElementById("folder");
+  element.value = {{ folder.id }}; 
+
+  document.getElementById("id_upload").removeAttribute("required");
+
 
   const editModal = document.getElementById('editModal')
   editModal.addEventListener('show.bs.modal', event => {
     // Button that triggered the modal
     const button = event.relatedTarget
+    
     // Extract info from data-bs-* attributes
     const document_id = button.getAttribute('data-bs-id')
     const document_name = button.getAttribute('data-bs-name')
     const document_description = button.getAttribute('data-bs-description')
-    const document_folder = button.getAttribute('data-bs-folder')
+    var document_folder = button.getAttribute('data-bs-folder')
     const document_upload = button.getAttribute('data-bs-upload')
+
+    console.log(document_upload)
     
     const documentId = editModal.querySelector('#id')
     const documentName = editModal.querySelector('#name')
     const documentDescription = editModal.querySelector('#description')
     const documentFolder = editModal.querySelector('#folder')
+    const documentUpload = editModal.querySelector('#id_upload')
     
     documentId.value = document_id
     documentName.value = document_name
     documentDescription.value = document_description
-    documentFolder.value = document_folder.id
+    documentFolder.value = document_folder
+    documentUpload.value = document_upload.PATH
   })
 </script>
 {% endblock %}

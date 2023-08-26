@@ -106,7 +106,10 @@ def add_folder_document(request):
 @login_required(login_url="/")
 def view_document(request, pk):
     document = Document.objects.get(pk=pk)
+    folder = document.folder
+    print("Folder: ", folder)
     context = {
-        "document": document
+        "document": document,
+        "folder":folder
     }
     return render(request, "folder/view_document.html", context)

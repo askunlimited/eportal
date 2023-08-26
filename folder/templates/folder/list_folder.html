@@ -28,7 +28,7 @@ Folders
       <form action="{% url 'add_folder' %}" method="POST">
       <div class="modal-body">
         {% csrf_token %} 
-        <input type="hidden" name="dept" value="{{ department }}" />
+        <input type="hidden" name="department" value="{{ department }}" />
           {{form.as_p}}
         </div>
         <div class="modal-footer">
@@ -133,8 +133,8 @@ Folders
 <script>
   element = document.getElementById("department");
   element.value = {{ department }};
-  // element.setAttribute('disabled', '');
-  document.getElementById("folder").value = {{ folder.id }}
+  //element.setAttribute('disabled', '');
+  document.getElementById("department").value = {{ department }}
 
   const editModal = document.getElementById('editModal')
   editModal.addEventListener('show.bs.modal', event => {
