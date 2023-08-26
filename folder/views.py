@@ -18,9 +18,14 @@ def list_folder(request):
     if not request.user.is_staff:
         current_user = Userprofile.objects.get(user=request.user.id)
         current_user_id = current_user.department.id
+        department = Department.objects.get(id=current_user_id)
         folders  = Folder.objects.filter(department=current_user_id)
-        # folders = Folder.objects.filter()
-        return render(request, "folder/list_folder.html", { "folders": folders, "form":form })
+        context = {
+            "folders": folders, 
+            "form":form,
+            "department": current_user_id
+        }
+        return render(request, "folder/list_folder.html", context)
     # print(folders.department)
     folders = Folder.objects.all()
     return render(request, "folder/list_folder.html", { "folders": folders, "form":form })
@@ -29,17 +34,20 @@ def list_folder(request):
 def add_folder(request):
     if request.method == "POST":
         form = AddFolderForm(request.POST)
+        department = Department.objects.get(id=request.POST['dept'])
         if form.is_valid():
             folder = form.save(commit=False)
             folder.created_by = request.user
+            folder.department = department
             folder.save()
             messages.success(request, "Folder added successfully")
             return redirect("all_folders")
         else:
-            messages.error(request, "Folder not created, try again")
+            messages.error(request, "Folder not created, form invalid")
+            return redirect("all_folders")
     else:
         form = AddFolderForm()
-    return render(request, "folder/add_folder.html", {"form": form})
+        return redirect("all_folders")
 
 @login_required(login_url="/")
 def edit_folder(request):
@@ -67,6 +75,7 @@ def delete_folder(request, pk):
     return redirect("all_folders")
 
 
+@login_required(login_url="/")
 def folder_document(request, pk):
     folder = Folder.objects.get(pk=pk)
     documents = Document.objects.filter(folder=pk)
@@ -78,6 +87,7 @@ def folder_document(request, pk):
     }
     return render(request, "folder/folder_document.html", context)
 
+@login_required(login_url="/")
 def add_folder_document(request):
     if request.method == "POST":
         form = AddDocumentForm(request.POST, request.FILES)
@@ -93,6 +103,7 @@ def add_folder_document(request):
         messages.error(request, "Method not allowed")
         return redirect('folder_document')
 
+@login_required(login_url="/")
 def view_document(request, pk):
     document = Document.objects.get(pk=pk)
     context = {

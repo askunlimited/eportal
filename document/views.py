@@ -29,7 +29,7 @@ def add_document(request):
             document.created_by = request.user
             document.save()
             messages.success(request, "document added successfully")
-            return redirect("all_folder")
+            return redirect("all_folders")
         else:
             messages.error(request, "document not created, try again")
     else:
