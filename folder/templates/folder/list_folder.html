@@ -131,11 +131,6 @@ Folders
 
 {% block script %}
 <script>
-  element = document.getElementById("department");
-  element.value = {{ department }};
-  //element.setAttribute('disabled', '');
-  document.getElementById("department").value = {{ department }}
-
   const editModal = document.getElementById('editModal')
   editModal.addEventListener('show.bs.modal', event => {
     // Button that triggered the modal
@@ -145,10 +140,7 @@ Folders
   const folder_name = button.getAttribute('data-bs-name')
   const folder_description = button.getAttribute('data-bs-description')
   const folder_department = button.getAttribute('data-bs-department')
-  
-  /**console.log("ID: ", folder_id)
-  console.log("Name: ", folder_name)
-  console.log("Desc: ", folder_description)  **/
+
   console.log("Dept: ", folder_department)
   const folderId = editModal.querySelector('#id')
   const folderName = editModal.querySelector('#name')

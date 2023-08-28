@@ -26,6 +26,7 @@ def list_folder(request):
             "department": current_user_id
         }
         return render(request, "folder/list_folder.html", context)
+        
     # print(folders.department)
     folders = Folder.objects.all()
     return render(request, "folder/list_folder.html", { "folders": folders, "form":form })

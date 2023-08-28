@@ -11,9 +11,11 @@ from .models import Document
 
 @login_required(login_url="/")
 def list_document(request):
-    documents = Document.objects.filter(created_by=request.user)
     form = AddDocumentForm()
-    # print("FOLDER: ", folders)
+    if request.user.is_staff:
+        documents = Document.objects.all()
+    else:
+        documents = Document.objects.filter(created_by=request.user)
     context = {
         "documents": documents,
         "form":form
