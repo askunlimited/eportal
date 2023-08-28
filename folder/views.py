@@ -35,11 +35,16 @@ def list_folder(request):
 def add_folder(request):
     if request.method == "POST":
         form = AddFolderForm(request.POST)
-        department = Department.objects.get(id=request.POST['dept'])
+
+        if not request.user.is_staff:
+            user_profile = Userprofile.objects.get(user=request.user.id)
+            print("Department: ", user_profile.department)
+
         if form.is_valid():
             folder = form.save(commit=False)
             folder.created_by = request.user
-            folder.department = department
+            if not request.user.is_staff:
+                folder.department = user_profile.department
             folder.save()
             messages.success(request, "Folder added successfully")
             return redirect("all_folders")
