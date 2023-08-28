@@ -22,7 +22,7 @@
               <h5 class="modal-title" id="exampleModalLabel">Add Document</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{% url 'add_document' %}" method="POST">
+            <form action="{% url 'add_document' %}" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               {% csrf_token %} 
                 {{form.as_p}}
@@ -44,7 +44,7 @@
               <h5 class="modal-title" id="exampleModalLabel">Edit Document</h5>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <form action="{% url 'add_document' %}" method="POST">
+            <form action="{% url 'add_document' %}" method="POST" enctype="multipart/form-data">
             <div class="modal-body">
               {% csrf_token %} 
               <input type="hidden" class="form-control" name="id" id="id" />
