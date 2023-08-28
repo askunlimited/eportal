@@ -13,6 +13,7 @@ from .models import Document
 def list_document(request):
     documents = Document.objects.filter(created_by=request.user)
     form = AddDocumentForm()
+    # print("FOLDER: ", folders)
     context = {
         "documents": documents,
         "form":form

@@ -69,6 +69,7 @@ Documents
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Description</th>
+          <th scope="col">Folder</th>
           <th scope="col">Created By</th>
           <th scope="col">Created At</th>
           <th scope="col">Action</th>
@@ -79,6 +80,7 @@ Documents
           <th scope="col">#</th>
           <th scope="col">Name</th>
           <th scope="col">Description</th>
+          <th scope="col">Folder</th>
           <th scope="col">Created By</th>
           <th scope="col">Created At</th>
           <th scope="col">Action</th>
@@ -90,6 +92,7 @@ Documents
           <td>{{ forloop.counter }}</td>
           <td>{{document.name}}</td>
           <td>{{document.description}}</td>
+          <td>{{document.folder.name}}</td>
           <td>{{document.created_by}}</td>
           <td>{{document.created_at}}</td>
           <td>
@@ -101,6 +104,8 @@ Documents
               data-bs-id="{{document.id}}"
               data-bs-name="{{document.name}}"
               data-bs-description="{{document.description}}"
+              data-bs-folder="{{document.folder.id}}"
+              data-bs-upload="{{document.upload}}"
               data-bs-department="{{document.department}}"
               >
               Edit
@@ -126,28 +131,26 @@ Documents
   const editModal = document.getElementById('editModal')
   editModal.addEventListener('show.bs.modal', event => {
     // Button that triggered the modal
-  const button = event.relatedTarget
-  // Extract info from data-bs-* attributes
-  const document_id = button.getAttribute('data-bs-id')
-  const document_name = button.getAttribute('data-bs-name')
-  const document_description = button.getAttribute('data-bs-description')
-  const document_department = button.getAttribute('data-bs-department')
-  
-  /**console.log("ID: ", document_id)
-  console.log("Name: ", document_name)
-  console.log("Desc: ", document_description)  **/
-  console.log("Dept: ", document_department)
-  const documentId = editModal.querySelector('#id')
-  const documentName = editModal.querySelector('#name')
-  const documentDescription = editModal.querySelector('#description')
-  const documentDepartment = editModal.querySelector('#department')
-
-  document.querySelector('#leaveCode').value = document_department
-  
-  documentId.value = document_id
-  documentName.value = document_name
-  documentDescription.value = document_description
-  // documentDepartment.value = document_department
-})
+    const button = event.relatedTarget
+    
+    // Extract info from data-bs-* attributes
+    const document_id = button.getAttribute('data-bs-id')
+    const document_name = button.getAttribute('data-bs-name')
+    const document_description = button.getAttribute('data-bs-description')
+    var document_folder = button.getAttribute('data-bs-folder')
+    const document_upload = button.getAttribute('data-bs-upload')
+    
+    const documentId = editModal.querySelector('#id')
+    const documentName = editModal.querySelector('#name')
+    const documentDescription = editModal.querySelector('#description')
+    const documentFolder = editModal.querySelector('#folder')
+    const documentUpload = editModal.querySelector('#id_upload')
+    
+    documentId.value = document_id
+    documentName.value = document_name
+    documentDescription.value = document_description
+    documentFolder.value = document_folder
+    // documentUpload.value = document_upload
+  })
 </script>
 {% endblock %}
