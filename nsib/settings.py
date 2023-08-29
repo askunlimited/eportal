@@ -99,6 +99,8 @@ AUTH_PASSWORD_VALIDATORS = [
 ]
 
 
+CSRF_TRUSTED_ORIGINS = ['https://*.nsib.gov.ng','https://*.139.59.139.220']
+
 # Internationalization
 # https://docs.djangoproject.com/en/4.1/topics/i18n/
 
