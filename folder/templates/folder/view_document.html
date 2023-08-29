@@ -6,20 +6,23 @@
 
 {% block content %}
 <div>
-  <div class="mt-5 d-flex justify-content-end">
+  <div class="mt-2 d-flex justify-content-end">
     <div></div>
   </div>
-  <div class="my-2 mt-5">
+  <div class="mt-1">
     <h4 class="text-md-start">{{ document.name }} - Documents</h4>
+    {% if document %} 
     <p>{{ document.description }} <small>({{ document.created_at }})</small></p>
+    <div class="controls">
+      <button id="previous" class="btn btn-info btn-sm">&laquo; Previous</button>
+      <p id="pageNumber">Page 1 of 1</p>
+      <button id="next" class="btn btn-info btn-sm">Next &raquo;</button>
+    </div>
     <hr/>
-    {% if document %}
-        <p>{{ document.name }} </p>
-        <p>{{ document.description }} </p>
-        <p><a href="/media/{{ document.upload }}">Download</a></p>
-        <p>
-          <embed src="/media/{{ document.upload }}" height="500" width="80%">
-        </p>
+    
+        <canvas id="canvas" class="border"></canvas>
+        <hr>
+        {% comment %} <p><a href="/media/{{ document.upload }}">Download</a></p> {% endcomment %}
     {% else %}
     <p class="my-5">You have not created any document under the <b>"{{ document.name }}"</b> document!</p>
 
@@ -31,37 +34,88 @@
 
 
 {% block script %}
-<script>
-  element = document.getElementById("folder");
-  element.value = {{ folder.id }}; 
-
-  const editModal = document.getElementById('editModal')
-    editModal.addEventListener('show.bs.modal', event => {
-      // Button that triggered the modal
-    const button = event.relatedTarget
-    // Extract info from data-bs-* attributes
-    const document_id = button.getAttribute('data-bs-id')
-    const document_name = button.getAttribute('data-bs-name')
-    const document_description = button.getAttribute('data-bs-description')
-    const document_folder = button.getAttribute('data-bs-folder')
-    
-    /**console.log("ID: ", document_id)
-    console.log("Name: ", document_name)
-    console.log("Desc: ", document_description)  **/
-    console.log("Dept: ", document_department)
-    const documentId = editModal.querySelector('#id')
-    const documentName = editModal.querySelector('#name')
-    const documentDescription = editModal.querySelector('#description')
-    const documentFolder = editModal.querySelector('#folder')
-
-    document.querySelector('#leaveCode').value = document_folder
-    
-    documentId.value = document_id
-    documentName.value = document_name
-    documentFolder.value = document_folder
-    // documentDepartment.value = document_department
-  })
-</script>
 <script src="https://mozilla.github.io/pdf.js/build/pdf.js"></script>
 <script src="https://raw.githubusercontent.com/bradtraversy/pdf_viewer/master/js/main.js"></script>
+<script>
+  const url = "/media/{{ document.upload }}";
+
+  (async function () {
+  
+      // Specified the workerSrc property
+      pdfjsLib.GlobalWorkerOptions.workerSrc = "//mozilla.github.io/pdf.js/build/pdf.worker.js";
+  
+      // Create the PDF document
+      const doc = await pdfjsLib.getDocument(url).promise;
+  
+      const minPage = 1;
+      const maxPage = doc._pdfInfo.numPages;
+      let currentPage = 1;
+  
+      // Get page 1
+      await getPage(doc, currentPage);
+  
+      // Display the page number
+      document.getElementById("pageNumber").innerHTML = `Page ${currentPage} of ${maxPage}`;
+  
+      // The previous button click event
+      document.getElementById("previous").addEventListener("click", async () => {
+  
+          if (currentPage > minPage) {
+  
+              // Get the previous page
+              await getPage(doc, currentPage--);
+  
+              // Display the page number
+              document.getElementById("pageNumber").innerHTML = `Page ${currentPage} of ${maxPage}`;
+  
+          }
+  
+      });
+  
+      // The next button click event
+      document.getElementById("next").addEventListener("click", async () => {
+  
+          if (currentPage < maxPage) {
+  
+              // Get the next page
+              await getPage(doc, currentPage++);
+  
+              // Display the page number
+              document.getElementById("pageNumber").innerHTML = `Page ${currentPage} of ${maxPage}`;
+  
+          }
+  
+      });
+  
+  })();
+  
+  
+  async function getPage(doc, pageNumber) {
+  
+      if (pageNumber >= 1 && pageNumber <= doc._pdfInfo.numPages) {
+  
+          // Fetch the page
+          const page = await doc.getPage(pageNumber);
+  
+          // Set the viewport
+          const viewport = page.getViewport({ scale: 1.5 });
+  
+          // Set the canvas dimensions to the PDF page dimensions
+          const canvas = document.getElementById("canvas");
+          const context = canvas.getContext("2d");
+          canvas.height = viewport.height;
+          canvas.width = viewport.width;
+  
+          // Render the PDF page into the canvas context
+          return await page.render({
+              canvasContext: context,
+              viewport: viewport
+          }).promise;
+  
+      } else {
+          console.log("Please specify a valid page number");
+      }
+  
+  }
+</script>
 {% endblock %}

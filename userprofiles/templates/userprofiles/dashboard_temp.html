@@ -1,5 +1,4 @@
-{% load static %}
-<!DOCTYPE html>
+{% load static %}<!DOCTYPE html>
 <html lang="en">
   <head>
     <!-- Required meta tags -->
@@ -46,6 +45,30 @@
     <link rel="icon" href="/docs/5.0/assets/img/favicons/favicon.ico" />
     <meta name="theme-color" content="#7952b3" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css" />
+    <style>
+      #canvas {
+        display: block;
+        margin: 0 auto;
+    }
+    
+    #pageNumber {
+        display: inline;
+    }
+    
+    /**.previous {
+        display: inline;
+        background-color: #FFFFFF;
+        color: black;
+        border-radius: 15%;
+    }
+    
+    .next {
+        display: inline;
+        background-color: #42A047;
+        color: white;
+        border-radius: 15%;
+    } **/
+    </style>
   </head>
   <body>
     {% include 'userprofiles/navbar.html' %}
